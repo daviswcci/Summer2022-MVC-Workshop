@@ -10,5 +10,10 @@
             Name = name;
             Players = players;
         }
+
+        public Position()
+        {
+
+        }
     }
 }
