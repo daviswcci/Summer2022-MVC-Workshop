@@ -1,7 +1,10 @@
+using Basketball_Workshop;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddDbContext<BasketballContext>();
 
 var app = builder.Build();
 

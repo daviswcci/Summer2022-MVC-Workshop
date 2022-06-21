@@ -2,13 +2,14 @@
 {
     public class Position
     {
-        public string Name;
-        public List<Player> Players;
+        public int Id { get; set; }
+        public string Name { get; set; }
+        //public List<Player> Players;
 
-        public Position(string name, List<Player> players)
+        public Position(string name) //, List<Player> players)
         {
             Name = name;
-            Players = players;
+            //Players = players;
         }
 
         public Position()
