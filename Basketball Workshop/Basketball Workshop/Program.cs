@@ -1,4 +1,5 @@
 using Basketball_Workshop;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 

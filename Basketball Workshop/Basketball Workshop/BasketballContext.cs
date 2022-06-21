@@ -5,12 +5,12 @@ namespace Basketball_Workshop
 {
     public class BasketballContext : DbContext
     {
-        public DbSet<Position> Positions;
+        public DbSet<Position> Position { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             // three things to specify: connection string, we tell the options builder to use that connection string
             // and then we feed our optionsBuilder into the parent class's configuring method
-            string connectionString = "Server=(localdb)\\mssqllocaldb; Database=BasketballDB_Summer2022; Trusted_Connection=True";
+            string connectionString = "Server=(localdb)\\mssqllocaldb;Database=BasketballDB_Summer2022;Trusted_Connection=True;";
             optionsBuilder.UseSqlServer(connectionString).UseLazyLoadingProxies();
             base.OnConfiguring(optionsBuilder);
         }
