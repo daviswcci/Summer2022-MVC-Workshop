@@ -2,19 +2,20 @@
 {
     public class Player
     {
-        public string Name;
-        public Team Team;
-        public List<Position> Positions;
-        public double PPG;
-        public bool IsRetired;
+        public int Id { get; set; }
+        public string Name { get; set; }
+        //public Team Team { get; set; }
+        public virtual List<PlayerPosition> Positions { get; set; }
+        public double PPG { get; set; }
+        public bool IsRetired { get; set; }
 
-        public Player(string name, Team team, List<Position> positions, double ppg, bool isRetired)
-        {
-            Name = name;
-            Team = team;
-            Positions = positions;
-            PPG = ppg;
-            IsRetired = isRetired;
-        }
+        //public Player(string name, Team team, List<Position> positions, double ppg, bool isRetired)
+        //{
+        //    Name = name;
+        //    Team = team;
+        //    Positions = positions;
+        //    PPG = ppg;
+        //    IsRetired = isRetired;
+        //}
     }
 }

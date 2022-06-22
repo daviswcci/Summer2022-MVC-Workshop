@@ -4,17 +4,12 @@
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        //public List<Player> Players;
+        public virtual List<PlayerPosition> Players { get; set; }
 
-        public Position(string name) //, List<Player> players)
-        {
-            Name = name;
-            //Players = players;
-        }
-
-        public Position()
-        {
-
-        }
+        //public Position(string name) //, List<Player> players)
+        //{
+        //    Name = name;
+        //    //Players = players;
+        //}
     }
 }
