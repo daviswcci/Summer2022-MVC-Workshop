@@ -1,0 +1,11 @@
+﻿@model Position
+
+<h1>Position: @Model.Name</h1>
+<hr />
+<h2>Players Who Play This Position:</h2>
+<ul>
+    @foreach (PlayerPosition playerPos in Model.Players)
+    {
+        <li>@playerPos.Player.Name - @playerPos.Player.PPG</li>
+    }
+</ul>

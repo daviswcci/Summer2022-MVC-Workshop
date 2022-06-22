@@ -8,6 +8,8 @@ namespace Basketball_Workshop
         public DbSet<Position> Positions { get; set; }
         public DbSet<PlayerPosition> PlayerPositions { get; set; }
         public DbSet<Player> Players { get; set; }
+        public DbSet<Team> Teams { get; set; }
+        public DbSet<Coach> Coaches { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             // three things to specify: connection string, we tell the options builder to use that connection string
@@ -36,6 +38,12 @@ namespace Basketball_Workshop
                 new PlayerPosition() { Id = 2, PlayerId = 1, PositionId = 5},
                 new PlayerPosition() { Id = 3, PlayerId = 2, PositionId = 1},
                 new PlayerPosition() { Id = 4, PlayerId = 2, PositionId = 2}
+                );
+            modelBuilder.Entity<Team>().HasData(
+                new Team() { Id = 1, City = "Cleveland", Name = "Cavs", Mascot = "Moondog"}
+                );
+            modelBuilder.Entity<Coach>().HasData(
+                new Coach() { Id = 1, TeamId = 1, Name = "J. B. Bickerstaff", FavoriteFood = "Pierogies", StartYear = DateTime.Now, Wins = 44, Losses = 38}
                 );
         }
     }

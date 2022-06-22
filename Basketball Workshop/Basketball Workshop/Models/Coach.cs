@@ -2,23 +2,25 @@
 {
     public class Coach
     {
-        public string Name;
-        public Team Team;
-        public List<Team> PastTeams;
-        public DateTime StartYear;
-        public int Wins;
-        public int Losses;
-        public string FavoriteFood;
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public int TeamId { get; set; }
+        public virtual Team Team { get; set; }
+        //public List<Team> PastTeams;
+        public DateTime StartYear { get; set; }
+        public int Wins { get; set; }
+        public int Losses { get; set; }
+        public string FavoriteFood { get; set; }
 
-        public Coach(string name, Team team, List<Team> pastTeams, DateTime startYear, int wins, int losses, string favoriteFood)
-        {
-            Name = name;
-            Team = team;
-            PastTeams = pastTeams;
-            StartYear = startYear;
-            Wins = wins;
-            Losses = losses;
-            FavoriteFood = favoriteFood;
-        }
+        //public Coach(string name, Team team, List<Team> pastTeams, DateTime startYear, int wins, int losses, string favoriteFood)
+        //{
+        //    Name = name;
+        //    Team = team;
+        //    PastTeams = pastTeams;
+        //    StartYear = startYear;
+        //    Wins = wins;
+        //    Losses = losses;
+        //    FavoriteFood = favoriteFood;
+        //}
     }
 }
