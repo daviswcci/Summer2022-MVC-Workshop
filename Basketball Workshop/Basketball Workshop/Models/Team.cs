@@ -16,7 +16,7 @@
                 return Players.Count;
             }
         }
-        public string Mascot;
+        public string Mascot { get; set; }
 
         //public Team(string name, string city, Coach coach, List<Player> players, string mascot)
         //{
