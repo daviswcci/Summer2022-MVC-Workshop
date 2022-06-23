@@ -43,5 +43,24 @@ namespace Basketball_Workshop.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+
+        public IActionResult Update(int id)
+        {
+            // error checking?
+            Coach coach = db.Coaches.Find(id); // an alternative to .ToList().Where(...).FirstOrDefault();
+            if(coach == null)
+            {
+                return View("Error");
+            }
+            return View(coach);
+        }
+
+        [HttpPost]
+        public IActionResult Update(Coach model)
+        {
+            db.Coaches.Update(model);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
     }
 }

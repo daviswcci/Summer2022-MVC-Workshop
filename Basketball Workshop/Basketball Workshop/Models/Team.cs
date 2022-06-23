@@ -13,6 +13,10 @@
             // customizing our 'getter' the . operator
             get
             {
+                if(Players == null)
+                {
+                    return 0;
+                }
                 return Players.Count;
             }
         }
