@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Basketball_Workshop.Migrations
 {
-    public partial class playerFix : Migration
+    public partial class nullablecoach : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -47,7 +47,7 @@ namespace Basketball_Workshop.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     City = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CoachId = table.Column<int>(type: "int", nullable: false),
+                    CoachId = table.Column<int>(type: "int", nullable: true),
                     Mascot = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
@@ -58,7 +58,8 @@ namespace Basketball_Workshop.Migrations
                         column: x => x.CoachId,
                         principalTable: "Coaches",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.SetNull
+                        );
                 });
 
             migrationBuilder.CreateTable(
@@ -112,7 +113,7 @@ namespace Basketball_Workshop.Migrations
             migrationBuilder.InsertData(
                 table: "Coaches",
                 columns: new[] { "Id", "FavoriteFood", "Losses", "Name", "StartYear", "Wins" },
-                values: new object[] { 1, "Pierogies", 38, "J. B. Bickerstaff", new DateTime(2022, 6, 23, 11, 16, 30, 78, DateTimeKind.Local).AddTicks(6937), 44 });
+                values: new object[] { 1, "Pierogies", 38, "J. B. Bickerstaff", new DateTime(2022, 6, 24, 10, 33, 16, 100, DateTimeKind.Local).AddTicks(7218), 44 });
 
             migrationBuilder.InsertData(
                 table: "Positions",
@@ -171,7 +172,8 @@ namespace Basketball_Workshop.Migrations
                 name: "IX_Teams_CoachId",
                 table: "Teams",
                 column: "CoachId",
-                unique: true);
+                unique: true,
+                filter: "[CoachId] IS NOT NULL");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

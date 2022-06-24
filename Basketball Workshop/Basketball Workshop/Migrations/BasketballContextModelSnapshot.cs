@@ -58,7 +58,7 @@ namespace Basketball_Workshop.Migrations
                             FavoriteFood = "Pierogies",
                             Losses = 38,
                             Name = "J. B. Bickerstaff",
-                            StartYear = new DateTime(2022, 6, 23, 11, 16, 30, 78, DateTimeKind.Local).AddTicks(6937),
+                            StartYear = new DateTime(2022, 6, 24, 10, 33, 16, 100, DateTimeKind.Local).AddTicks(7218),
                             Wins = 44
                         });
                 });
@@ -214,7 +214,7 @@ namespace Basketball_Workshop.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("CoachId")
+                    b.Property<int?>("CoachId")
                         .HasColumnType("int");
 
                     b.Property<string>("Mascot")
@@ -228,7 +228,8 @@ namespace Basketball_Workshop.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CoachId")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[CoachId] IS NOT NULL");
 
                     b.ToTable("Teams");
 
@@ -277,9 +278,7 @@ namespace Basketball_Workshop.Migrations
                 {
                     b.HasOne("Basketball_Workshop.Models.Coach", "Coach")
                         .WithOne("Team")
-                        .HasForeignKey("Basketball_Workshop.Models.Team", "CoachId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("Basketball_Workshop.Models.Team", "CoachId");
 
                     b.Navigation("Coach");
                 });

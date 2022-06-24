@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Basketball_Workshop.Models.Team>
+﻿@model IEnumerable<Basketball_Workshop.Models.Player>
 
 @{
     ViewData["Title"] = "Index";
@@ -16,13 +16,13 @@
                 @Html.DisplayNameFor(model => model.Name)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.City)
+                @Html.DisplayNameFor(model => model.Team)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Coach)
+                @Html.DisplayNameFor(model => model.PPG)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Mascot)
+                @Html.DisplayNameFor(model => model.IsRetired)
             </th>
             <th></th>
         </tr>
@@ -34,20 +34,13 @@
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.City)
+                @Html.DisplayFor(modelItem => item.Team.Id)
             </td>
             <td>
-                    @if(item.Coach == null)
-                    {
-                        <p>Hiring</p>
-                    } else
-                    {
-                        <a href="/Coach/Details/@item.CoachId">@item.Coach.Name</a>
-                    }
-                    
+                @Html.DisplayFor(modelItem => item.PPG)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Mascot)
+                @Html.DisplayFor(modelItem => item.IsRetired)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
