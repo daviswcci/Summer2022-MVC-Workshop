@@ -23,7 +23,22 @@ namespace Basketball_Workshop.Controllers
 
         public IActionResult Create()
         {
-            ViewBag.Coaches = new SelectList(db.Coaches.ToList(), "Id", "Name");
+            List<Coach> coaches = new List<Coach>();
+            foreach (Coach c in db.Coaches.ToList())
+            {
+                // check to see if c is located on a team
+                Team temp = db.Teams.FirstOrDefault(team => team.CoachId == c.Id);
+                if (temp == null)
+                {
+                    // if so, remove it from the list
+                    coaches.Add(c);
+                }
+            }
+
+            // one-liner version
+            //List<Coach> coaches = db.Coaches.Where(c => db.Teams.FirstOrDefault(t => t.CoachId == c.Id) == null).ToList();
+
+            ViewBag.Coaches = new SelectList(coaches, "Id", "Name");
             return View(new Team());
         }
 

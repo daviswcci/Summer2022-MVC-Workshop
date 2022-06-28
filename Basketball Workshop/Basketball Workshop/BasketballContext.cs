@@ -47,5 +47,7 @@ namespace Basketball_Workshop
                 );
 
         }
+
+        public DbSet<Basketball_Workshop.Models.TempPlayer>? TempPlayer { get; set; }
     }
 }
