@@ -16,3 +16,15 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+h1{
+    color: indigo;
+}
+
+tr:nth-child(even){
+    background-color: lightgray;
+}
+
+#home-bball{
+    max-height: 5rem;
+}
