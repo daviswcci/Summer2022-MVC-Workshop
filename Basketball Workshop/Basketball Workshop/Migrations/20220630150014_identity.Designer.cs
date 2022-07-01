@@ -4,6 +4,7 @@ using Basketball_Workshop;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Basketball_Workshop.Migrations
 {
     [DbContext(typeof(BasketballContext))]
-    partial class BasketballContextModelSnapshot : ModelSnapshot
+    [Migration("20220630150014_identity")]
+    partial class identity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -50,6 +52,17 @@ namespace Basketball_Workshop.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Coaches");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            FavoriteFood = "Pierogies",
+                            Losses = 38,
+                            Name = "J. B. Bickerstaff",
+                            StartYear = new DateTime(2022, 6, 30, 11, 0, 13, 689, DateTimeKind.Local).AddTicks(3904),
+                            Wins = 44
+                        });
                 });
 
             modelBuilder.Entity("Basketball_Workshop.Models.Player", b =>
@@ -73,17 +86,29 @@ namespace Basketball_Workshop.Migrations
                     b.Property<int>("TeamId")
                         .HasColumnType("int");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("Id");
 
                     b.HasIndex("TeamId");
 
-                    b.HasIndex("UserId");
-
                     b.ToTable("Players");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            IsRetired = false,
+                            Name = "Kevin Love",
+                            PPG = 10.4,
+                            TeamId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            IsRetired = false,
+                            Name = "Colin Sexton",
+                            PPG = 19.300000000000001,
+                            TeamId = 1
+                        });
                 });
 
             modelBuilder.Entity("Basketball_Workshop.Models.PlayerPosition", b =>
@@ -107,6 +132,32 @@ namespace Basketball_Workshop.Migrations
                     b.HasIndex("PositionId");
 
                     b.ToTable("PlayerPositions");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            PlayerId = 1,
+                            PositionId = 4
+                        },
+                        new
+                        {
+                            Id = 2,
+                            PlayerId = 1,
+                            PositionId = 5
+                        },
+                        new
+                        {
+                            Id = 3,
+                            PlayerId = 2,
+                            PositionId = 1
+                        },
+                        new
+                        {
+                            Id = 4,
+                            PlayerId = 2,
+                            PositionId = 2
+                        });
                 });
 
             modelBuilder.Entity("Basketball_Workshop.Models.Position", b =>
@@ -124,6 +175,33 @@ namespace Basketball_Workshop.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Positions");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Point Guard"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Shooting Guard"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Small Forward"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Power Forward"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "Center"
+                        });
                 });
 
             modelBuilder.Entity("Basketball_Workshop.Models.Team", b =>
@@ -156,6 +234,16 @@ namespace Basketball_Workshop.Migrations
                         .HasFilter("[CoachId] IS NOT NULL");
 
                     b.ToTable("Teams");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            City = "Cleveland",
+                            CoachId = 1,
+                            Mascot = "Moondog",
+                            Name = "Cavs"
+                        });
                 });
 
             modelBuilder.Entity("Basketball_Workshop.Models.TempPlayer", b =>
@@ -263,10 +351,6 @@ namespace Basketball_Workshop.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Email")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -318,8 +402,6 @@ namespace Basketball_Workshop.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -403,13 +485,6 @@ namespace Basketball_Workshop.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Basketball_Workshop.Models.User", b =>
-                {
-                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
-
-                    b.HasDiscriminator().HasValue("User");
-                });
-
             modelBuilder.Entity("Basketball_Workshop.Models.Player", b =>
                 {
                     b.HasOne("Basketball_Workshop.Models.Team", "Team")
@@ -418,15 +493,7 @@ namespace Basketball_Workshop.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Basketball_Workshop.Models.User", "User")
-                        .WithMany("Players")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Team");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Basketball_Workshop.Models.PlayerPosition", b =>
@@ -525,11 +592,6 @@ namespace Basketball_Workshop.Migrations
                 });
 
             modelBuilder.Entity("Basketball_Workshop.Models.Team", b =>
-                {
-                    b.Navigation("Players");
-                });
-
-            modelBuilder.Entity("Basketball_Workshop.Models.User", b =>
                 {
                     b.Navigation("Players");
                 });

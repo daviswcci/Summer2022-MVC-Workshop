@@ -1,5 +1,8 @@
 ﻿@model Basketball_Workshop.Models.Player
 
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<User> SignInManager
+
 @{
     ViewData["Title"] = "Details";
 }
@@ -44,6 +47,9 @@
             </li>
         }
     </ul>
+    <h4>Creator</h4>
+    <p>@Model.UserId</p>
+    <p> Your Id: @SignInManager.UserManager.GetUserId(User)</p>
 </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |

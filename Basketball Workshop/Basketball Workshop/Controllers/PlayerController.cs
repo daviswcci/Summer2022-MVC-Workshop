@@ -1,4 +1,6 @@
 ﻿using Basketball_Workshop.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Basketball_Workshop.Controllers
@@ -6,20 +8,24 @@ namespace Basketball_Workshop.Controllers
     public class PlayerController : Controller
     {
         public BasketballContext db { get; set; }
-        public PlayerController(BasketballContext db)
+        public SignInManager<User> signInManager { get; set; } // refactor
+        public PlayerController(BasketballContext db, SignInManager<User> signInManager)
         {
             this.db = db;
+            this.signInManager = signInManager;
         }
         public IActionResult Index()
         {
             return View(db.Players.ToList());
         }
 
+
         public IActionResult Details(int id)
         {
             return View(db.Players.Find(id));
         }
 
+        [Authorize]
         public IActionResult Delete(int id)
         {
             Player player = db.Players.Find(id);
@@ -28,15 +34,17 @@ namespace Basketball_Workshop.Controllers
             return RedirectToAction("Index");
         }
 
+        [Authorize]
         public IActionResult Create()
         {
             return View(new TempPlayer());
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult Create(TempPlayer model)
         {
-            Player player = new Player() { IsRetired = model.IsRetired, Name = model.Name, TeamId = model.TeamId, PPG = model.PPG };
+            Player player = new Player() { IsRetired = model.IsRetired, Name = model.Name, TeamId = model.TeamId, PPG = model.PPG, UserId = signInManager.UserManager.GetUserId(User)};
             db.Players.Add(player);
             db.SaveChanges();
             int playerId = player.Id;
